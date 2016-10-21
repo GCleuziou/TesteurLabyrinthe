@@ -21,12 +21,12 @@ class EasyPythonDirective(Directive):
 
 
     def getExercice(self,pathFichierModuleEns):
+        print(pathFichierModuleEns)
         with open(pathFichierModuleEns) as fichier:
             contenu=''.join(fichier.readlines())   
             headers = {'content-type': 'application/json'}
             payload={'moduleEns':contenu, 'enonce':"toto",'commentaires':""}
             res=requests.post("http://localhost:8000/api/v1/gestion_exercice/", data=json.dumps(payload), headers=headers)
-            print(res.text)
             return res.json()
         """
         {'titre': 'mafonctino',
@@ -59,12 +59,16 @@ class EasyPythonDirective(Directive):
         env = self.state.document.settings.env
         zoneExercice=EasyPythonNode()
         exemples=Exemples()
-        exemples["exemples"]=[("123","34"), ("45","52")]
 
         zoneExercice["numero_exercice"]=7
         (relative_filename, absolute_filename)=env.relfn2path(self.arguments[0])
         donnees=self.getExercice(os.path.join(env.srcdir,relative_filename))
-        zoneExercice["prototype_solution"]=donnees["resultats_ens"]["nom_solution"]
+#        print(donnees["resultats_ens"])
+        exemples["exemples"]=donnees["resultats_ens"]["solutions_visibles"]
+        [("123","34"), ("45","52")]
+        zoneExercice["prototype_solution"]="def " + donnees["resultats_ens"]["nom_solution"] + "("+','.join(donnees["resultats_ens"]["arguments"])+"):\n    return None"
+        zoneExercice["hash"]= donnees["hashCode"]
+
 
         return [exemples, zoneExercice]
 
@@ -74,9 +78,11 @@ def visit_exemples_node(self, node):
             self.body.append("<p> Sur l'entrée " + str(entree) + " votre solution doit renvoyer " + str(sortie) + " </p>")
 
 def visit_easypython_node(self, node):
-
+        self.body.append("<div id='"+node["hash"]+"'>")
         self.body.append("<div class='easypython'>")
         self.body.append(node["prototype_solution"])
+        self.body.append("</div>")
+        self.body.append("<button type='button' class='btn btn-primary' onclick=soumettre('"+node['hash']+"') > Envoyer </button>")
         self.body.append("</div>")
 
 def depart_easypython_node(self, node):
