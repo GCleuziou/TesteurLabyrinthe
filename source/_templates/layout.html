@@ -1,0 +1,24 @@
+{% extends "!layout.html" %}
+{% set script_files = script_files + ["https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.0/codemirror.min.js", "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.0/mode/python/python.min.js"] %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.0/codemirror.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.0/codemirror.min.css"/>
+
+{% endblock %}
+
+
+{% block document %}
+    {{ super() }}
+		<script>
+	  zonesCode = document.getElementsByClassName("easypython");
+    for(elem of zonesCode)
+	  CodeMirror( function(elt) {
+			elem.parentNode.replaceChild(elt, elem);
+		  },
+			{
+      value: elem.innerHTML,
+      mode:"python"
+   	});
+	</script>
+{% endblock %}
