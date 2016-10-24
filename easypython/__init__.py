@@ -21,13 +21,13 @@ class EasyPythonDirective(Directive):
 
 
     def getExercice(self,pathFichierModuleEns):
-        print(pathFichierModuleEns)
         with open(pathFichierModuleEns) as fichier:
             contenu=''.join(fichier.readlines())
             headers = {'content-type': 'application/json'}
             payload={'moduleEns':contenu, 'enonce':"toto",'commentaires':""}
             res=requests.post("http://localhost:8000/api/v1/gestion_exercice/", data=json.dumps(payload), headers=headers)
             return res.json()
+
         """
         {'titre': 'mafonctino',
         'enonce': 'toto',
@@ -60,10 +60,16 @@ class EasyPythonDirective(Directive):
         zoneExercice=EasyPythonNode()
         exemples=Exemples()
         (relative_filename, absolute_filename)=env.relfn2path(self.arguments[0])
-        donnees=self.getExercice(absolute_filename)
-        print(relative_filename)
-#        print(donnees["resultats_ens"])
-        #env.note_included(absolute_filename)
+        donnees= self.getExercice(absolute_filename) if env.app.config.easypython_production else {
+        'hashCode': '1234',
+        'resultats_ens':
+           {
+              'arguments': ['argument_bidon', 'argument_bidon'],
+              'solutions_visibles': [["exemple bidon", "sortie bidon"], ["exemple bidon", "sortie bidon"]],
+              'nom_solution': 'fonction_bidon',
+            }
+        }
+        #print(donnees)
         exemples["exemples"]=donnees["resultats_ens"]["solutions_visibles"]
         zoneExercice["prototype_solution"]="def " + donnees["resultats_ens"]["nom_solution"] + "("+','.join(donnees["resultats_ens"]["arguments"])+"):\n    return None"
         zoneExercice["hash"]= donnees["hashCode"]
@@ -91,6 +97,7 @@ def visit_latex(self,node):
     pass
 
 def setup(app):
+    app.add_config_value('easypython_production', False, 'html')
     app.add_node(EasyPythonNode, html=(visit_easypython_node, depart_easypython_node), latex=(visit_latex, latex_departure))
     app.add_node(Exemples, html=(visit_exemples_node, depart_easypython_node),latex=(visit_latex, latex_departure))
 
