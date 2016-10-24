@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from docutils import nodes
 from docutils.parsers.rst import Directive
 from sphinx.util.compat import make_admonition

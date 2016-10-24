@@ -4,7 +4,7 @@ function(){
   window.soumettre = function(hash){
     currentCM=codemirrors[hash]
     currentNode=codeNode[hash]
-    fetch('http://localhost:8000/api/v1/tentative/',
+    fetch('/api/v1/tentative/',
     {
       mode:'cors',
       method: 'POST',
