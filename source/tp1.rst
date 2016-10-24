@@ -1,10 +1,10 @@
 ==============
-TP1
+TP boucles While
 ==============
 
-Dans ce TP il y a un exercice. C'est formidable !
+Ce TP a pour objectif de vous faire travailler els boucles *While*. 
 
-Le voici :
 
-.. include::  exercices/exo0.rst
+
+.. include::  exercices/twisted_fate.rst
 .. include::  exercices/exo1.rst
