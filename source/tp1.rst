@@ -1,13 +1,19 @@
 ==============
 TP1
-=============
+==============
+Soustitre
+--------------
 
-Dans ce TP il y a un exercice. 
+*special*
+#jesaispas#
+**azeaze**
+
+Dans ce TP il y a un exercice. C'est formidable !
 
 Le voici :
 
-.. toctree:: 
-
-    exercices/exo0.rst
+.. toctree::
+.. include::  exercices/exo0.rst
+.. include::  exercices/exo1.rst
 
 

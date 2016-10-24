@@ -23,7 +23,7 @@ class EasyPythonDirective(Directive):
     def getExercice(self,pathFichierModuleEns):
         print(pathFichierModuleEns)
         with open(pathFichierModuleEns) as fichier:
-            contenu=''.join(fichier.readlines())   
+            contenu=''.join(fichier.readlines())
             headers = {'content-type': 'application/json'}
             payload={'moduleEns':contenu, 'enonce':"toto",'commentaires':""}
             res=requests.post("http://localhost:8000/api/v1/gestion_exercice/", data=json.dumps(payload), headers=headers)
@@ -32,16 +32,16 @@ class EasyPythonDirective(Directive):
         {'titre': 'mafonctino',
         'enonce': 'toto',
         'hashCode': '23f83f469056e5351613c4f6dc71c72b',
-        'resultats_ens': 
+        'resultats_ens':
            {
               'entrees_visibles': [[1, 2], [2, 3]],
               'arguments': ['x', 'y'],
               'solutions_visibles': [['1, 2', '1'], ['2, 3', '2']],
               'nom_solution': 'mafonctino',
-              'messages': ['Solutions et entrées, tout y est !'], 
-              'temps': 0.005748748779296875, 
-              'solutions_invisibles': [[[1, 2], 1], [[2, 3], 2]], 
-              'entrees_invisibles': [[1, 2], [2, 3]]}, 
+              'messages': ['Solutions et entrées, tout y est !'],
+              'temps': 0.005748748779296875,
+              'solutions_invisibles': [[[1, 2], 1], [[2, 3], 2]],
+              'entrees_invisibles': [[1, 2], [2, 3]]},
               'resource_uri': '/api/v1/gestion_exercice/23f83f469056e5351613c4f6dc71c72b/',
               'commentaires': '',
               'moduleEns': 'entrees_visibles = [\n        (1,2),\n        (2,3)\n]\nentrees_invisibles = [\n        (1,2),\n        (2,3)\n]\n\n@solution\ndef mafonctino(x,y):\n  return  x\n', 'auteur': '', 'date': '2016-10-21T09:28:42.557085', 'resultatsEns': '{"solutions_invisibles": [[[1, 2], 1], [[2, 3], 2]], "messages": ["Solutions et entr\\u00e9es, tout y est !"], "arguments": ["x", "y"], "temps": 0.005748748779296875, "entrees_invisibles": [[1, 2], [2, 3]], "entrees_visibles": [[1, 2], [2, 3]], "nom_solution": "mafonctino", "solutions_visibles": [["1, 2", "1"], ["2, 3", "2"]]}'}
@@ -59,13 +59,12 @@ class EasyPythonDirective(Directive):
         env = self.state.document.settings.env
         zoneExercice=EasyPythonNode()
         exemples=Exemples()
-
-        zoneExercice["numero_exercice"]=7
         (relative_filename, absolute_filename)=env.relfn2path(self.arguments[0])
-        donnees=self.getExercice(os.path.join(env.srcdir,relative_filename))
+        donnees=self.getExercice(absolute_filename)
+        print(relative_filename)
 #        print(donnees["resultats_ens"])
+        #env.note_included(absolute_filename)
         exemples["exemples"]=donnees["resultats_ens"]["solutions_visibles"]
-        [("123","34"), ("45","52")]
         zoneExercice["prototype_solution"]="def " + donnees["resultats_ens"]["nom_solution"] + "("+','.join(donnees["resultats_ens"]["arguments"])+"):\n    return None"
         zoneExercice["hash"]= donnees["hashCode"]
 
@@ -73,16 +72,14 @@ class EasyPythonDirective(Directive):
         return [exemples, zoneExercice]
 
 def visit_exemples_node(self, node):
-        self.body.append("<div>")
+        self.body.append("<ul class='list-group'>")
         for (entree,sortie) in node["exemples"]:
-            self.body.append("<p> Sur l'entrée " + str(entree) + " votre solution doit renvoyer " + str(sortie) + " </p>")
+            self.body.append("<li class='list-group-item'> Sur l'entrée <code>" + str(entree) + "</code> votre solution doit renvoyer <code>" + str(sortie) + "</code>.</li>")
+        self.body.append("</ul>")
 
 def visit_easypython_node(self, node):
-        self.body.append("<div id='"+node["hash"]+"'>")
-        self.body.append("<div class='easypython'>")
+        self.body.append("<div hash='"+node["hash"]+"'' class='easypython clearfix' '>")
         self.body.append(node["prototype_solution"])
-        self.body.append("</div>")
-        self.body.append("<button type='button' class='btn btn-primary' onclick=soumettre('"+node['hash']+"') > Envoyer </button>")
         self.body.append("</div>")
 
 def depart_easypython_node(self, node):
@@ -96,4 +93,3 @@ def setup(app):
     app.add_directive('easypython', EasyPythonDirective)
 
     return {'version': '0.1'}   # identifies the version of our extension
-
