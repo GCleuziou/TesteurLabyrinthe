@@ -85,10 +85,14 @@ def visit_easypython_node(self, node):
 def depart_easypython_node(self, node):
     pass
 
+def latex_departure(self, node):
+    pass
+def visit_latex(self,node):
+    pass
 
 def setup(app):
-    app.add_node(EasyPythonNode, html=(visit_easypython_node, depart_easypython_node))
-    app.add_node(Exemples, html=(visit_exemples_node, depart_easypython_node))
+    app.add_node(EasyPythonNode, html=(visit_easypython_node, depart_easypython_node), latex=(visit_latex, latex_departure))
+    app.add_node(Exemples, html=(visit_exemples_node, depart_easypython_node),latex=(visit_latex, latex_departure))
 
     app.add_directive('easypython', EasyPythonDirective)
 
