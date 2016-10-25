@@ -4,7 +4,7 @@ function(){
   window.soumettre = function(hash){
     currentCM=codemirrors[hash]
     currentNode=codeNode[hash]
-    fetch('/api/v1/tentative/',
+    fetch('https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap3/api/v1/tentative/',
     {
       mode:'cors',
       method: 'POST',
