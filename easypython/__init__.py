@@ -81,7 +81,7 @@ class EasyPythonDirective(Directive):
 def visit_exemples_node(self, node):
         self.body.append("<ul class='list-group'>")
         for (entree,sortie) in node["exemples"]:
-            self.body.append("<li class='list-group-item'> Sur l'entrée <code>" + str(entree) + "</code> votre solution doit renvoyer <code>" + str(sortie) + "</code>.</li>")
+            self.body.append("<li class='list-group-item'> Sur l'entr&eacute;e <code>" + str(entree) + "</code> votre solution doit renvoyer <code>" + str(sortie) + "</code>.</li>")
         self.body.append("</ul>")
 
 def visit_easypython_node(self, node):
