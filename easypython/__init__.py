@@ -1,3 +1,4 @@
+# coding: utf8
 from docutils import nodes
 from docutils.parsers.rst import Directive
 from sphinx.util.compat import make_admonition
@@ -38,7 +39,7 @@ class EasyPythonDirective(Directive):
               'arguments': ['x', 'y'],
               'solutions_visibles': [['1, 2', '1'], ['2, 3', '2']],
               'nom_solution': 'mafonctino',
-              'messages': ['Solutions et entrées, tout y est !'],
+              'messages': ['Solutions et entrees, tout y est !'],
               'temps': 0.005748748779296875,
               'solutions_invisibles': [[[1, 2], 1], [[2, 3], 2]],
               'entrees_invisibles': [[1, 2], [2, 3]]},
@@ -53,7 +54,7 @@ class EasyPythonDirective(Directive):
 
     option_spec = {
         "language": directives.unchanged,
-        "uuid": directives.unchanged, # TODO si défini le prendre comme hash
+        "uuid": directives.unchanged, # TODO si defini le prendre comme hash
     }
     def run(self):
         env = self.state.document.settings.env
