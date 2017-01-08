@@ -28,3 +28,9 @@ Et pour finir, un défi :
 ________________________
 
 .. include:: exercices/twisted_fate.rst
+
+
+Exemple en JAVA :
+________________
+.. include:: exercices/essai_java.rst
+
