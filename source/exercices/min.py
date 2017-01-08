@@ -10,5 +10,5 @@ entrees_invisibles = [
 ]
 
 @solution
-def maximum(x,y):
-  return max(x,y)
+def minimum(x,y):
+  return min(x,y)
