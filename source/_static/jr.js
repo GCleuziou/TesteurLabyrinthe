@@ -30,9 +30,9 @@ function(){
         } else {
           reponse.json().then(
             reponse=>{
-              let titre="vide"
-              let contenu="vide"
-              let erreur=''
+              titre="vide";
+              contenu="vide;"
+              erreur='';
               for (_erreur in reponse.tentative)
                  erreur=_erreur
 
@@ -74,7 +74,7 @@ function(){
     codeNode={}
     zonesCode.each(
       function(zone){
-        let prototype=$(this).html()
+        prototype=$(this).html()
         $(this).text("")
         c=CodeMirror(this, {
           value: prototype,
