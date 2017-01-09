@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded",
 function(){
 
-  window.soumettre = function(hash){
+  window.soumettre = function(hash, language){
     currentCM=codemirrors[hash]
     currentNode=codeNode[hash]
-    fetch('https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap3/api/v1/tentative/',
+    currentNode.children("button")[0].disabled=true;
+    t=currentNode.children("button")[0].innerHTML='Patientez..';
+//    fetch('https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap3/api/v1/tentative'+language+'/',
+    fetch('http://localhost:8000/api/v1/tentative_'+language+'/',
     {
       mode:'cors',
       method: 'POST',
@@ -19,6 +22,9 @@ function(){
         }
       })
       .then(reponse => {
+
+        currentNode.children("button").disabled=false;
+
         if (reponse.ok) {
           currentCM.setOption('readOnly',true)
           reussi=$("<div class='alert alert-success' role='alert'>Félicitations !!</div>")
@@ -28,6 +34,8 @@ function(){
           else
             currentNode.append(reussi)
         } else {
+          currentNode.children("button")[0].innerHTML="Envoyer";
+          currentNode.children("button")[0].disabled=false;
           reponse.json().then(
             reponse=>{
               titre="vide";
@@ -38,7 +46,7 @@ function(){
 
               titre=erreur
               contenu=$(`<ul class='list-group collapse' id='contenu-${hash}'/>`)
-                for( x of reponse.tentative[erreur])
+                for( x of reponse["tentative_"+language][erreur]) // ATTENTION : pas bon tenative => tentative_python ou tenative_java
                   contenu.append($(`
                     <li class="list-group-item">
                     <code>${x}</code>
@@ -86,7 +94,7 @@ function(){
 
         var $bouton=$("<button/>", {
           text:'Envoyer',
-          click: function(hash){return function(){soumettre(hash)}}($(this).attr('hash')),
+          click: function(hash, language){return function(){soumettre(hash,language)}}($(this).attr('hash'), $(this).attr('language')),
           class:'btn btn-primary',
           type:'button'
         })

@@ -21,7 +21,15 @@ class Exemples(nodes.Admonition, nodes.Element):
 class EasyPythonDirective(Directive):
 
 
-    def getExercice(self,pathFichierModuleEns):
+    def getExerciceJava(self,pathFichierModuleEns):
+        with open(pathFichierModuleEns) as fichier:
+            contenu=''.join(fichier.readlines())
+            headers = {'content-type': 'application/json'}
+            payload={'moduleEns':contenu, 'enonce':"toto",'commentaires':""}
+            res=requests.post("http://localhost:8000/api/v1/gestion_exercice_java/", data=json.dumps(payload), headers=headers)
+            return res.json()
+
+    def getExercicePython(self,pathFichierModuleEns):
         with open(pathFichierModuleEns) as fichier:
             contenu=''.join(fichier.readlines())
             headers = {'content-type': 'application/json'}
@@ -47,7 +55,14 @@ class EasyPythonDirective(Directive):
               'commentaires': '',
               'moduleEns': 'entrees_visibles = [\n        (1,2),\n        (2,3)\n]\nentrees_invisibles = [\n        (1,2),\n        (2,3)\n]\n\n@solution\ndef mafonctino(x,y):\n  return  x\n', 'auteur': '', 'date': '2016-10-21T09:28:42.557085', 'resultatsEns': '{"solutions_invisibles": [[[1, 2], 1], [[2, 3], 2]], "messages": ["Solutions et entr\\u00e9es, tout y est !"], "arguments": ["x", "y"], "temps": 0.005748748779296875, "entrees_invisibles": [[1, 2], [2, 3]], "entrees_visibles": [[1, 2], [2, 3]], "nom_solution": "mafonctino", "solutions_visibles": [["1, 2", "1"], ["2, 3", "2"]]}'}
         """
-
+    def getExercice(self, language, pathFichierModuleEns):
+         if language=="python":
+              return self.getExercicePython(pathFichierModuleEns)
+         if language=="java":
+             res=self.getExerciceJava(pathFichierModuleEns)
+             return res
+         else:
+             return "Unknown programming language"
     has_content = True
     required_arguments = 1
     optional_arguments = 2
@@ -58,10 +73,9 @@ class EasyPythonDirective(Directive):
     }
     def run(self):
         env = self.state.document.settings.env
-        zoneExercice=EasyPythonNode()
-        exemples=Exemples()
         (relative_filename, absolute_filename)=env.relfn2path(self.arguments[0])
-        donnees= self.getExercice(absolute_filename) if env.app.config.easypython_production else {
+
+        donnees= self.getExercice(self.options["language"], absolute_filename) if env.app.config.easypython_production else {
         'hashCode': '1234',
         'resultats_ens':
            {
@@ -71,12 +85,21 @@ class EasyPythonDirective(Directive):
             }
         }
         #print(donnees)
-        exemples["exemples"]=donnees["resultats_ens"]["solutions_visibles"]
-        zoneExercice["prototype_solution"]="def " + donnees["resultats_ens"]["nom_solution"] + "("+','.join(donnees["resultats_ens"]["arguments"])+"):\n    return None"
-        zoneExercice["hash"]= donnees["hashCode"]
 
-
-        return [exemples, zoneExercice]
+        if(self.options["language"]=="python"):
+            zoneExercice=EasyPythonNode()
+            exemples=Exemples()
+            exemples["exemples"]=donnees["resultats_ens"]["solutions_visibles"]
+            zoneExercice["prototype_solution"]="def " + donnees["resultats_ens"]["nom_solution"] + "("+','.join(donnees["resultats_ens"]["arguments"])+"):\n    return None"
+            zoneExercice["hash"]= donnees["hashCode"]
+            zoneExercice["language"]=self.options["language"]
+            return [exemples, zoneExercice]
+        if(self.options["language"]=="java"):
+            zoneExercice=EasyPythonNode()
+            zoneExercice["prototype_solution"]="Votre classe.."
+            zoneExercice["hash"]= donnees["hashCode"]
+            zoneExercice["language"]=self.options["language"]
+            return [zoneExercice]
 
 def visit_exemples_node(self, node):
         self.body.append("<ul class='list-group'>")
@@ -85,7 +108,7 @@ def visit_exemples_node(self, node):
         self.body.append("</ul>")
 
 def visit_easypython_node(self, node):
-        self.body.append("<div hash='"+node["hash"]+"'' class='easypython clearfix' '>")
+        self.body.append("<div hash='"+node["hash"]+"' language='"+node["language"]+"' class='easypython clearfix'>")
         self.body.append(node["prototype_solution"])
         self.body.append("</div>")
 
