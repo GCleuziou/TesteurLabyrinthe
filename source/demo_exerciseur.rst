@@ -16,12 +16,12 @@ On peut appeler la fonction de cette manière : ::
 
 L'exercice suivant vous propose d'essayer !
 
-.. include::  exercices/produit.rst
+#.. include::  exercices/produit.rst
 
-.. include:: exercices/max.rst
-.. include:: exercices/min.rst
+#.. include:: exercices/max.rst
+#.. include:: exercices/min.rst
 
-.. include:: exercices/somme.rst
+#.. include:: exercices/somme.rst
 
 
 Et pour finir, un défi :
