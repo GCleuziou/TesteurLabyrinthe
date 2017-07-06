@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # ones.
 #
 extensions = [
-  'easypython',
+  'sphinx-easypython',
 ]
 
 # A changer pour tests locaux
