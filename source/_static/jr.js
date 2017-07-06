@@ -1,7 +1,3 @@
-// Pour recuperer plusieurs exos :
-//http://localhost:8000/api/v1/exercice/set/b62224deaa1dbbfaa5d62386ada196c5;97a014dbd904d31ae6101c658b193060/?format=json
-
-
 var codeNode={}
 var codemirrors={}
 
