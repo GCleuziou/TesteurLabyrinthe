@@ -1,5 +1,5 @@
 Produit de deux entiers
------------
+------------------------
 
 Écrivez une fonction ``produit`` prenant en entrée deux entiers et renvoyant le produit des deux entiers.
 

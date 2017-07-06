@@ -1,5 +1,5 @@
 Maximum de deux entiers
------------
+-------------------------
 
 Écrivez une fonction ``maximum`` prenant en entrée deux entiers et renvoyant le plus grand des deux.
 

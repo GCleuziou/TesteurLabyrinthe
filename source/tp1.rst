@@ -1,6 +1,6 @@
-==============
+================
 TP boucles While
-==============
+================
 
 Ce TP a pour objectif de vous faire travailler els boucles *While*. 
 

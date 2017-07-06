@@ -17,37 +17,39 @@ class Exemples(nodes.Admonition, nodes.Element):
     pass
 
 class EasyPythonDirective(Directive):
-#    def getExerciceJava(self,pathFichierModuleEns):
-#        with open(pathFichierModuleEns) as fichier:
-#            contenu=''.join(fichier.readlines())
-#            headers = {'content-type': 'application/json'}
-#            payload={'moduleEns':contenu, 'enonce':"toto",'commentaires':"",'type':"java"}
-#            res=requests.post("http://localhost:8000/api/v1/gestion_exercice_java/", data=json.dumps(payload), headers=headers)
-#            return res.json()
 
-#    def getExercicePython(self,pathFichierModuleEns):
-#        with open(pathFichierModuleEns) as fichier:
-#            contenu=''.join(fichier.readlines())
-#            headers = {'content-type': 'application/json'}
-#            payload={'moduleEns':contenu, 'enonce':"toto",'type':self.options["language"]}
-#            res=requests.post("http://localhost:8000/api/v1/gestion_exercice/", data=json.dumps(payload), headers=headers)
-#            dico = res.json()
-#            if 'traceback' in dico:
-#                print(dico["traceback"])
-#            return dico
-#    def getExercice(self, language, pathFichierModuleEns):
-#         if language=="python":
-#              return self.getExercicePython(pathFichierModuleEns)
-#         if language=="java":
-#             res=self.getExerciceJava(pathFichierModuleEns)
-#             return res
-#         else:
-#             return "Unknown programming language"
-    def getExercice(self,pathFichierModuleEns):
+
+    def testExercice(self, pathFichierModuleEns,options):
+        from .Testeurs import TesteurPython
+        if(options["language"]=="python"):
+            print("Traitement du fichier"+str(pathFichierModuleEns))
+            with open(pathFichierModuleEns,"rb") as e:
+                testeur = TesteurPython(e.read(), "")
+                #print(testeur.test())
+                res = testeur.infos()
+                if "messagesErreur" in res:
+                    print("Fichier incorrect:")
+                    for m in res["messagesErreur"]:
+                        print("\t"+str(m))
+                else:
+                    print("\tLa fonction proposée s'appelle : " + res["nom_solution"])
+                    if "solutions_visibles" in res:
+                        print("\tENTREES VISIBLES DES ETUDIANTS:")
+                        for (e,s) in res["solutions_visibles"]:
+                            print("\t\t"+res["nom_solution"] + "(" + str(e) + ") renvoie " + str(s)) 
+                    if "solutions_invisibles" in res:
+                        print("\tENTREES INVISIBLES DES ETUDIANTS:")
+                        for (e,s) in res["solutions_invisibles"]:
+                            print("\t\t"+res["nom_solution"] + "(" + str(e) + ") renvoie " + str(s)) 
+                return res
+
+
+    def getExercice(self,pathFichierModuleEns,options):
         with open(pathFichierModuleEns) as fichier:
             contenu=''.join(fichier.readlines())
             headers = {'content-type': 'application/json'}
-            payload={'moduleEns':contenu, 'enonce':"toto",'type':self.options["language"]}
+            payload={'moduleEns':contenu, 'type':self.options["language"]}
+            payload.update(options)
             res=requests.post("http://localhost:8000/api/v1/gestion_exercice/", data=json.dumps(payload), headers=headers)
             dico = res.json()
             if 'traceback' in dico:
@@ -79,23 +81,27 @@ class EasyPythonDirective(Directive):
 
     option_spec = {
         "language": directives.unchanged,
-        "uuid": directives.unchanged, # TODO si defini le prendre comme hash
+        "uuid": directives.unchanged,
+        "titre": directives.unchanged,
+        "nomclasse": directives.unchanged,
     }
 
+    possibleMeta = {"nomclasse"}
     def run(self):
         print("OPTIONS:" + str(self.options))
+        metas = {x:self.options[x] for x in self.possibleMeta if x in self.options}
+        self.options.update({"metainfos":metas})
         env = self.state.document.settings.env
         (relative_filename, absolute_filename)=env.relfn2path(self.arguments[0])
 
-        #donnees= self.getExercice(self.options["language"], absolute_filename) if env.app.config.easypython_production else {
-        donnees= self.getExercice(absolute_filename) if env.app.config.easypython_production else {
+        donnees= self.getExercice(absolute_filename,self.options) if env.app.config.easypython_production else {
         'hashCode': '1234',
-        'metaInfos':
-           {
-              'arguments': ['argument_bidon', 'argument_bidon'],
-              'solutions_visibles': [["exemple bidon", "sortie bidon"], ["exemple bidon", "sortie bidon"]],
-              'nom_solution': 'fonction_bidon',
-            }
+        'metaInfos': self.testExercice(absolute_filename,self.options)
+        #{
+        #      'arguments': ['argument_bidon', 'argument_bidon'],
+        #      'solutions_visibles': [["exemple bidon", "sortie bidon"], ["exemple bidon", "sortie bidon"]],
+        #      'nom_solution': 'fonction_bidon',
+        #    }
         }
         if(self.options["language"]=="python"):
             zoneExercice=EasyPythonNode()

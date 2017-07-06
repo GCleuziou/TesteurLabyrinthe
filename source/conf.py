@@ -20,7 +20,8 @@ extensions = [
 ]
 
 # A changer pour tests locaux
-easypython_production=True
+#easypython_production=True
+easypython_production=False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
