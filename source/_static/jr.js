@@ -60,7 +60,7 @@ function soumettreSolution(hash,language)
     bouton.disabled=true;
     tutu = bouton.innerHTML='Patientez..';
 //    fetch('https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap3/api/v1/tentative'+language+'/',
-    fetch('http://localhost:8000/api/v1/tentative/',
+    fetch('https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap3/api/v1/tentative/',
     {
       mode        : 'cors',
       method      : 'POST',
@@ -125,7 +125,7 @@ function setInfosExercices()
         exercices+=elem+";";
    }
 
-   fetch("http://localhost:8000/api/v1/exerciceReussi/set/"+exercices+"/?format=json",
+   fetch("https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap3/api/v1/exerciceReussi/set/"+exercices+"/?format=json",
     {
       mode        :'cors',
       method      : 'GET',
