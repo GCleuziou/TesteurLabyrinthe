@@ -3,9 +3,9 @@
 
 ## Installation : 
 
-Il faut avoir sphinx_bootstrap_theme, par exemple en faisant :
+Il faut avoir sphinx_bootstrap_theme, et jsonpickle par exemple en faisant :
 
-    $ pip3 install sphinx_bootstrap_theme
+    $ pip3 install sphinx_bootstrap_theme jsonpickle
 
 Puis cloner le dépot : 
 
