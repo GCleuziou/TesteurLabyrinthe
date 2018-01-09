@@ -7,6 +7,7 @@ Essai !!
    :language: java
    :uuid: 1231313
    :titre: Exercice Java
-   :nomClasse: Exercice.classe
+   :nomClasse: MaClass
+   :nom_classe_test: MaClasseTest
 
 
