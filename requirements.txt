@@ -3,7 +3,7 @@ Babel==2.5.1
 certifi==2017.11.5
 chardet==3.0.4
 docutils==0.14
--e git+https://gitlab.com/jrobert/easypython-testeur.git@d845f60123fd52c47ea2242eba9fb8471f74230d#egg=easypython_testeur
+-e git+https://gitlab.com/jrobert/easypython-testeur.git#egg=easypython_testeur
 idna==2.6
 imagesize==0.7.1
 Jinja2==2.10
@@ -17,6 +17,6 @@ six==1.11.0
 snowballstemmer==1.2.1
 Sphinx==1.6.5
 sphinx-bootstrap-theme==0.6.0
--e git+https://gitlab.com/jrobert/sphinx-easypython.git@473ca489a3acf46e44d22981fd58852d284d5df5#egg=sphinx_easypython
+-e git+https://gitlab.com/jrobert/sphinx-easypython.git#egg=sphinx_easypython
 sphinxcontrib-websupport==1.0.1
 urllib3==1.22
