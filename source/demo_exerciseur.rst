@@ -65,3 +65,6 @@ Exemple en JAVA :
 __________________
 .. include:: exercices/essai_java.rst
 
+Exemple Generique :
+___________________
+.. include:: exercices/exo_generique.rst
