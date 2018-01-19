@@ -68,3 +68,7 @@ __________________
 Exemple Generique :
 ___________________
 .. include:: exercices/exo_generique.rst
+
+Exemple IJVM :
+___________________
+.. include:: exercices/exo_ijvm.rst
