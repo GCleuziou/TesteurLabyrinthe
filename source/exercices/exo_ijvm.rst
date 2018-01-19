@@ -1,7 +1,7 @@
-Exercice Generique
+Exercice IJVM
 -------------------
 
-Dans cet exercice, écrivez un nombre strictement supérieur à 3 !
+Dans cet exercice, écrivez un le code jas qui convient ... (pas simple !) 
 
 
 .. easypython:: exercices/exo_ijvm.ijvm
