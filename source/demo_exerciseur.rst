@@ -72,3 +72,6 @@ ___________________
 Exemple IJVM :
 ___________________
 .. include:: exercices/exo_ijvm.rst
+Exemple MySQL :
+___________________
+.. include:: exercices/exo_mysql.rst
