@@ -21,8 +21,8 @@ extensions = [
 ]
 
 # A changer pour tests locaux
-#easypython_production=True
-easypython_production=False
+easypython_production=True
+#easypython_production=False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -127,7 +127,7 @@ html_theme_path = sphinx_easypython_theme.get_html_theme_path()
 #
 # html_theme_options = {}
 html_theme_options = {
-    #'api_route_tentative' : 'https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap/api/v1/tentative/',
+    'api_route' : 'https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap/api/v1/',
     
     # Navigation bar title. (Default: ``project`` value)
     'navbar_title': "EasyPython",
