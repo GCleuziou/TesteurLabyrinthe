@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import sphinx_bootstrap_theme
+#import sphinx_bootstrap_theme
+import sphinx_easypython_theme
 sys.path.insert(0, os.path.abspath('..'))
 
 # -- General configuration ------------------------------------------------
@@ -116,14 +117,18 @@ todo_include_todos = False
 #
 #html_theme = 'sphinxdoc'
 
-html_theme = 'bootstrap'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+#html_theme = 'bootstrap'
+html_theme = 'sphinx_easypython_theme'
+#html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+html_theme_path = sphinx_easypython_theme.get_html_theme_path()
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
 # html_theme_options = {}
 html_theme_options = {
+    #'api_route_tentative' : 'https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap/api/v1/tentative/',
+    
     # Navigation bar title. (Default: ``project`` value)
     'navbar_title': "EasyPython",
 
@@ -211,7 +216,7 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+#html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied

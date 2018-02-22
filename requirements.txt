@@ -18,5 +18,6 @@ snowballstemmer==1.2.1
 Sphinx==1.6.5
 sphinx-bootstrap-theme==0.6.0
 -e git+https://gitlab.com/jrobert/sphinx-easypython.git#egg=sphinx_easypython
+-e git+https://gitlab.com/jrobert/sphinx-easypython-theme.git#egg=sphinx_easypython-theme
 sphinxcontrib-websupport==1.0.1
 urllib3==1.22
