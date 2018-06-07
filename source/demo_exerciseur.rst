@@ -75,3 +75,11 @@ ___________________
 Exemple MySQL :
 ___________________
 .. include:: exercices/exo_mysql.rst
+
+Exemple R :
+___________________
+.. include:: exercices/exo_r.rst
+
+Exemple Hypothesis :
+_____________________
+.. include:: exercices/exo_hypothesis.rst
