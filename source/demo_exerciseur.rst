@@ -2,6 +2,14 @@
 TP exemple
 ==============
 
+Mastermind 
+___________
+.. include:: exercices/exemple_mastermind.rst
+
+
+
+Python
+_______
 
 Pour la suite, vous aurez besoin de savoir définir une fonction python. Par exemple, la fonction suivante permet de faire la somme de deux entiers passés en argument : ::
 
