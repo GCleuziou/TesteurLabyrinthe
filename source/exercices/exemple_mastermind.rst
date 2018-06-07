@@ -1,7 +1,5 @@
-Exercice Generique
--------------------
 
-Proposez une solution pour le mastermind suivant : 
+Proposez une solution pour le mastermind suivant. Un blanc signifie qu'un pion est bien placé un noir signifie qu'un pion est de la bonne couleur mais mal placé.
 
 .. image:: http://www.top-enigmes.com/images/mastermind1bis.png
    :align: center
