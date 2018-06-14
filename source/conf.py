@@ -125,7 +125,7 @@ html_theme_path = sphinx_easypython_theme.get_html_theme_path()
 #
 # html_theme_options = {}
 html_theme_options = {
-    'api_route' : 'https://www.univ-orleans.fr/iut-orleans/informatique/intra/ap/api/v1/',
+    'api_route' : '/api/v1/',
     
     # Navigation bar title. (Default: ``project`` value)
     'navbar_title': "EasyPython",
