@@ -7,6 +7,6 @@ Dans cet exercice, vous devrez écrire une fonction qui prend en argument un cou
 
   chose
 
-.. easypython:: exercices/exo1.py
+.. easypython:: /exercices/exo1.py
    :language: python
    :uuid: 1231313
