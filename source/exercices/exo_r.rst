@@ -9,7 +9,7 @@ Dans cet exercice écrivez une fonction freq :
 
 
 
-.. easypython:: exercices/exo_r.r
+.. easypython:: /exercices/exo_r.r
    :language: R
    :titre: Exercice R d'exemple
 
