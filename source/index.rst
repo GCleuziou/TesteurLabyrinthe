@@ -6,7 +6,7 @@
 Bienvenue sur EasyPython
 ========================
 
-Les sujets de TP:
+Les sujets de TP disponibles:
 
 .. toctree::
    :maxdepth: 2
