@@ -1,6 +1,10 @@
 
+def plus1(x):
+    return x+1
+
+
 entrees_visibles = [
-        (1,plus1(2)),
+        (1,plus1(1)),
         (2,3)
 ]
 entrees_invisibles = [
@@ -8,8 +12,6 @@ entrees_invisibles = [
         (2,3)
 ]
 
-def plus1(x):
-    return x+1
 
 def f(x,y):
   return y
