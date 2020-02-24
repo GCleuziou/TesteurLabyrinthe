@@ -1,6 +1,6 @@
 
 entrees_visibles = [
-        (1,1+1),
+        (1,1+2),
         (2,3)
 ]
 entrees_invisibles = [
