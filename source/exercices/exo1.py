@@ -7,6 +7,9 @@ entrees_invisibles = [
         (2,3)
 ]
 
+def couple(l):
+    return(l[0],l[1])
+
 @solution
 def g(x,y):
   return y
