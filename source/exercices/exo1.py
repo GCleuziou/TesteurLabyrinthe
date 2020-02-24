@@ -1,12 +1,15 @@
 entrees_visibles = [
-        (1,2),
-        (2,3)
+        couple([1,2]),
+        couple([2,3])
 ]
 entrees_invisibles = [
-        (1,2),
-        (2,3)
+        couple([1,2]),
+        couple([2,3])
 ]
 
 @solution
+def couple(l):
+    return (l[0],l[1])
+
 def g(x,y):
   return y
