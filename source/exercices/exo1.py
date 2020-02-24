@@ -1,10 +1,10 @@
 entrees_visibles = [
-        (1,2),
-        (2,3)
+        couple([1,2]),
+        couple([2,3])
 ]
 entrees_invisibles = [
-        (1,2),
-        (2,3)
+        couple([1,2]),
+        couple([2,3])
 ]
 
 def couple(l):
