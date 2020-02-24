@@ -8,8 +8,8 @@ entrees_invisibles = [
 ]
 
 def couple(l):
-    return(l[0],l[1])
+    return l[0],l[1]
 
 @solution
-def g(x,y):
-  return y
+def g(c):
+  return c[1]
