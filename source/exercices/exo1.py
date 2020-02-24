@@ -9,5 +9,7 @@ entrees_invisibles = [
 ]
 
 @solution
-def g(x,y):
+def f(x,y):
   return y
+def g(x,y):
+  return f(x,y)
